@@ -1,8 +1,21 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
+import VueRouter from "vue-router";
+import { InlineSvgPlugin } from "vue-inline-svg";
+import Routes from "./utils/router";
+import store from "./store";
 
-Vue.config.productionTip = false
+Vue.use(VueRouter);
+Vue.use(InlineSvgPlugin);
+
+Vue.config.productionTip = false;
+
+const router = new VueRouter({
+  routes: Routes
+});
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  store,
+  render: (h) => h(App)
+}).$mount("#app");
