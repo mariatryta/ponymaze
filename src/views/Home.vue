@@ -1,19 +1,30 @@
 <template>
-  <div class="home">
-    <div class="intro"></div>
-    <vInput name="pony" @submit="submitValue">Write a valid pony name</vInput>
+  <main class="home">
+    <div class="hero">
+      <div class="hero__col">
+        <img src="@/assets/ponies.png" alt="" />
+      </div>
+      <div class="hero__col">
+        <vInput name="pony" @submit="submitValue"
+          >Write a valid pony name</vInput
+        >
+      </div>
+    </div>
 
     <Card :data="pony" v-if="pony"></Card>
     <vButton @click="startGame" v-if="pony && mazeId">I am ready</vButton>
+
     <!-- <LoadingOverlay /> -->
-    <!-- <PonyShowcase v-bind="ponies"></PonyShowcase> -->
-  </div>
+    <PonyShowcase :defaultPonies="defaultPonies"></PonyShowcase>
+  </main>
 </template>
 
 <script>
 import vInput from "../components/Input.vue";
 import Card from "../components/Card.vue";
 import vButton from "../components/Button.vue";
+import PonyShowcase from "../components/PonyShowcase.vue";
+
 import { mapState } from "vuex";
 
 export default {
@@ -21,8 +32,19 @@ export default {
     vInput,
     Card,
     vButton,
+    PonyShowcase,
   },
-
+  data() {
+    return {
+      defaultPonies: [
+        { name: "Rarity", key: "rarity" },
+        { name: "Princess Luna", key: "princess-luna" },
+        { name: "Fluttershy", key: "fluttershy" },
+        { name: "Spike", key: "spike" },
+        { name: "Twilight Sparkle", key: "twillight-sparkle" },
+      ],
+    };
+  },
   computed: mapState({
     mazeId: (state) => state.maze.id,
     pony: (state) => state.user.pony,
@@ -102,12 +124,31 @@ export default {
 
 <style lang="scss" scoped>
 .home {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .hero {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    &__col {
+      width: 50%;
+    }
+  }
+
   ::v-deep .input-wrapper {
     margin: 45px 0;
   }
 
   ::v-deep .card {
     margin: 0 auto;
+  }
+
+  ::v-deep .showcase {
+    margin-top: auto;
   }
 }
 </style>

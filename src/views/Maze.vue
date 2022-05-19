@@ -1,7 +1,7 @@
 <template>
-  <div class="maze">
+  <main class="maze">
     <MazeGrid @refreshData="refreshData" :data="mazeData"> </MazeGrid>
-  </div>
+  </main>
 </template>
 
 <script>
