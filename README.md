@@ -40,6 +40,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [ ] Quality
   - [ ] Unit tests
   - [ ] Accessibility
+  - [ ] trap focus withing dialog
 - [ ] Features
   - [ ] restart app / start new game
   - [ ] possibility to persist in LS

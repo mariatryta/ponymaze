@@ -1,21 +1,31 @@
 <template>
-  <form class="input__wrapper" @submit.prevent="submit">
-    <label class="input__label" :for="name"><slot></slot></label>
-    <input
-      class="input__input"
-      type="text"
-      :name="name"
-      :id="name"
-      v-model="value"
-      :placeholder="placeholder"
-    />
-    <button class="input__button" type="submit">Submit</button>
+  <form class="md:w-6/12 w-4/5" @submit.prevent="submit">
+    <div class="relative">
+      <label class="block text-s font-medium text-gray-500" :key="name">
+        <slot></slot>
+      </label>
+
+      <input
+        class="w-full p-3 mt-1 text-sm border-2 border-gray-200 rounded focus:border-pink-600 focus:ring-0"
+        type="text"
+        :name="name"
+        :id="name"
+        v-model="value"
+        :placeholder="placeholder"
+      />
+    </div>
+    <vButton type="submit">Submit</vButton>
   </form>
 </template>
 
 <script>
+import vButton from "./Button.vue";
+
 export default {
   name: "Input",
+  components: {
+    vButton,
+  },
   props: {
     name: {
       type: String,
@@ -40,31 +50,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.input__wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .input__ {
-    &label {
-      margin-bottom: 16px;
-      font-size: 24px;
-    }
-
-    &input {
-      background-color: transparent;
-      border: 1px solid $light;
-      border-radius: 0;
-      outline: none;
-      height: 3rem;
-      width: 100%;
-      font-size: 1rem;
-      margin: 0 0 15px 0;
-      padding: 0;
-      box-shadow: none;
-    }
-  }
-}
-</style>

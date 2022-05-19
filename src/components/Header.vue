@@ -10,20 +10,3 @@
     </ul>
   </header>
 </template>
-
-<script>
-export default {};
-</script>
-
-<style lang="scss" scoped>
-.header {
-  .list {
-    display: block;
-
-    &--item {
-      display: inline-block;
-      margin: 0 10px;
-    }
-  }
-}
-</style>

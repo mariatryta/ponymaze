@@ -1,13 +1,24 @@
 <template>
-  <div class="card">
-    <div class="card__image">
-      <img class="image" :src="data.image[0]" alt="" />
+  <a class="relative block bg-black group" href="">
+    <img
+      class="absolute inset-0 object-cover w-full h-full transition-opacity opacity-75 group-hover:opacity-50"
+      :src="data.image[0]"
+      alt=""
+    />
+    <div class="relative p-8">
+      <p class="text-2xl font-bold text-white">{{ data.name }}</p>
+
+      <div class="mt-64">
+        <div
+          class="transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
+        >
+          <p class="text-sm text-white">
+            {{ data.occupation }}
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="card__text">
-      <h2 class="text__headline">{{ data.name }}</h2>
-      <div class="text__description">{{ data.occupation }}</div>
-    </div>
-  </div>
+  </a>
 </template>
 
 <script>

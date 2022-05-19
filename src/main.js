@@ -4,7 +4,7 @@ import VueRouter from "vue-router";
 import { InlineSvgPlugin } from "vue-inline-svg";
 import Routes from "./utils/router";
 import store from "./store";
-import "./index.scss";
+import "./assets/tailwind.css";
 
 Vue.use(VueRouter);
 Vue.use(InlineSvgPlugin);

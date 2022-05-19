@@ -1,21 +1,44 @@
 <template>
-  <main class="home">
-    <div class="hero">
-      <div class="hero__col">
-        <img src="@/assets/ponies.png" alt="" />
+  <main class="md:flex flex-col h-full flex-1">
+    <div class="md:flex flex-1 items-center">
+      <div class="md:w-6/12">
+        <img
+          class="md:mt-0 mt-20 mx-auto bg-center"
+          src="@/assets/ponies.png"
+          alt=""
+        />
       </div>
-      <div class="hero__col">
-        <vInput name="pony" @submit="submitValue"
+      <div class="md:w-6/12">
+        <vInput class="my-5 mx-auto" name="pony" @submit="submitValue"
           >Write a valid pony name</vInput
         >
+        <p
+          @click="showDefaultPonies = true"
+          class="text-sm font-light text-gray-600 cursor-pointer"
+        >
+          Don't know any ponies ? Choose one here
+        </p>
       </div>
     </div>
 
-    <Card :data="pony" v-if="pony"></Card>
+    <Card class="my-auto" :data="pony" v-if="pony"></Card>
     <vButton @click="startGame" v-if="pony && mazeId">I am ready</vButton>
 
     <!-- <LoadingOverlay /> -->
-    <PonyShowcase :defaultPonies="defaultPonies"></PonyShowcase>
+    <Modal
+      v-show="showDefaultPonies"
+      labeledBy="showcaseTitle"
+      selectButton="Confirm Selection"
+      closeButton="Cancel"
+      @close="showDefaultPonies = false"
+    >
+      <template slot="main">
+        <PonyShowcase
+          class="mt-auto"
+          :defaultPonies="defaultPonies"
+        ></PonyShowcase>
+      </template>
+    </Modal>
   </main>
 </template>
 
@@ -24,6 +47,7 @@ import vInput from "../components/Input.vue";
 import Card from "../components/Card.vue";
 import vButton from "../components/Button.vue";
 import PonyShowcase from "../components/PonyShowcase.vue";
+import Modal from "../components/Modal.vue";
 
 import { mapState } from "vuex";
 
@@ -33,9 +57,11 @@ export default {
     Card,
     vButton,
     PonyShowcase,
+    Modal,
   },
   data() {
     return {
+      showDefaultPonies: false,
       defaultPonies: [
         { name: "Rarity", key: "rarity" },
         { name: "Princess Luna", key: "princess-luna" },
@@ -124,31 +150,5 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  height: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-
-  .hero {
-    display: flex;
-    flex: 1;
-    align-items: center;
-
-    &__col {
-      width: 50%;
-    }
-  }
-
-  ::v-deep .input-wrapper {
-    margin: 45px 0;
-  }
-
-  ::v-deep .card {
-    margin: 0 auto;
-  }
-
-  ::v-deep .showcase {
-    margin-top: auto;
-  }
 }
 </style>

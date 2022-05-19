@@ -1,16 +1,28 @@
 <template>
-  <div class="showcase">
-    <div class="showcase__ponies">
-      <div class="pony" v-for="pony in defaultPonies" :key="pony.name">
-        <div class="pony__image-wrapper">
-          <img
-            class="pony__image"
-            :src="require(`@/assets/ponies/${pony.key}.png`)"
-            alt=""
-          />
-        </div>
-        <div class="pony__name">{{ pony.name }}</div>
+  <div>
+    <div
+      id="showcaseTitle"
+      class="text-xl font-bold text-center block text-pink-600 mb-6"
+    >
+      Select a pony needing a rescue
+    </div>
+    <div
+      class="flex items-center focus:outline-none focus:ring-pink-300 focus:ring-2 cursor-pointer"
+      v-for="pony in defaultPonies"
+      :key="pony.name"
+      tabindex="1"
+      @click="selectPony"
+      @keydown.enter="selectPony"
+    >
+      <div class="relative h-20 w-20 m-2 flex items-center">
+        <div class="absolute bg-pink-500 rounded-full h-16 w-16 z-0"></div>
+        <img
+          class="relative z-1 bg-contain h-full w-full"
+          :src="require(`@/assets/ponies/${pony.key}.png`)"
+          alt=""
+        />
       </div>
+      <div class="ml-5">{{ pony.name }}</div>
     </div>
   </div>
 </template>
@@ -26,79 +38,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.showcase {
-  background-color: $main-color;
-  position: relative;
-  padding-bottom: 20px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    background-color: #ec058e;
-    width: 111%;
-    height: 100%;
-    left: -5%;
-    top: -100%;
-    mask: url("../assets/clouds.svg");
-    mask-repeat: no-repeat;
-    mask-size: cover;
-    z-index: 2;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    background-color: $light;
-    width: 115%;
-    height: 102%;
-    left: -6%;
-    top: -107%;
-    mask: url("../assets/clouds.svg");
-    mask-repeat: no-repeat;
-    mask-size: cover;
-    z-index: 0;
-  }
-
-  .showcase__ponies {
-    display: flex;
-    gap: 25px;
-    justify-content: space-evenly;
-    position: relative;
-    top: -20px;
-    z-index: 3;
-
-    .pony {
-      width: 13%;
-      cursor: pointer;
-
-      &:hover .pony__image-wrapper {
-        transform: scale(1.1);
-      }
-
-      .pony__image-wrapper {
-        border-radius: 100%;
-        overflow: hidden;
-        border: 10px solid $light;
-        transition: transform 200ms ease-in-out;
-        background: $main-color;
-        position: relative;
-
-        .pony__image {
-          width: 100%;
-          aspect-ratio: 1/1;
-          object-fit: cover;
-        }
-      }
-
-      .pony__name {
-        font-family: $font-decorative;
-        font-weight: 600;
-        color: white;
-        font-size: 24px;
-        position: relative;
-        top: -15px;
-      }
-    }
-  }
-}
-</style>
