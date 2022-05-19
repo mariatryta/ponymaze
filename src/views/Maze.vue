@@ -1,17 +1,25 @@
 <template>
-  <div>i am maze</div>
+  <div class="maze">
+    <MazeGrid :data="mazeData"> </MazeGrid>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import MazeGrid from "../components/MazeGrid.vue";
 
 export default {
+  components: {
+    MazeGrid,
+  },
   computed: mapState({
-    mazeId: (state) => state.maze.id,
-    pony: (state) => state.user.pony,
+    mazeData: (state) => state.maze.data,
   }),
 };
 </script>
 
 <style lang="scss" scoped>
+.maze {
+  height: 100%;
+}
 </style>

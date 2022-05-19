@@ -54,7 +54,7 @@ export default {
     initGame() {
       const data = {
         "maze-width": 15,
-        "maze-height": 15,
+        "maze-height": 20,
         "maze-player-name": this.pony.name,
         difficulty: 1,
       };
