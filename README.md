@@ -31,10 +31,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### To-Do
 
 - [x] Init new game with Pony name
-- [ ] Fetch data for maze structure
+- [x] Fetch data for maze structure
 - [ ] Offer maze config
-- [ ] Build maze
-- [ ] Keyboard nav
+- [x] Build maze
+- [x] Keyboard nav
 - [ ] Animation
 - [ ] Winning / loosing state
 - [ ] Quality

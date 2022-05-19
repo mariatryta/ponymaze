@@ -5,7 +5,7 @@
         v-for="(cell, index) in data.data"
         :key="index"
         :id="`cell-${index}`"
-        :class="['grid__cell', setWalls(cell)]"
+        :class="['grid__cell', ...mappedCells[index]]"
       ></div>
 
       <div class="maze__characters" :style="getGridStyle">
@@ -33,7 +33,14 @@ export default {
   data() {
     return {
       elements: {},
+      mappedCells: [],
+      gameStatus: "active",
     };
+  },
+  watch: {
+    data() {
+      this.calculatePosition(this.data, this.elements);
+    },
   },
   computed: {
     getGridStyle() {
@@ -45,10 +52,61 @@ export default {
     },
   },
   methods: {
-    setWalls(cellData) {
+    setupWalls() {
+      this.mappedCells = this.data.data.map((cell, i) => {
+        return [
+          ...this.getCellWalls(
+            cell,
+            this.data.data[i + 1],
+            this.data.data[i + this.data.size[0]]
+          ),
+        ];
+      });
+    },
+    makeMove(direction) {
+      console.log("call make move");
+      fetch(
+        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.data.maze_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            direction,
+          }),
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          const state = res["state-result"].toLowerCase();
+          this.gameStatus = res.state;
+
+          if (res.state === "active" && state === "move accepted") {
+            this.$emit("refreshData");
+          }
+        });
+    },
+
+    listenToKeydown(e) {
+      const key = e.keyCode.toString();
+      const keyMap = {
+        38: "north",
+        37: "west",
+        39: "east",
+        40: "south",
+      };
+
+      if (!Object.keys(keyMap).includes(key)) {
+        return;
+      }
+
+      this.makeMove(keyMap[key]);
+    },
+    getCellWalls(currentCell, nextCell, bottomCell) {
       const walls = [];
 
-      cellData.forEach((wall) => {
+      currentCell.forEach((wall) => {
         switch (wall) {
           case "north":
             walls.push("b-n");
@@ -61,7 +119,20 @@ export default {
         }
       });
 
+      nextCell && nextCell.includes("west") && walls.push("b-e");
+      bottomCell && bottomCell.includes("north") && walls.push("b-s");
+
       return walls;
+    },
+    calculatePosition(data, elements) {
+      Object.keys(elements).forEach((key) => {
+        const row = data[key] / data.size[0];
+        const leftover = row - Math.floor(row);
+        const col = leftover * data.size[0];
+
+        this.elements[key].style.gridColumn = Math.round(col) + 1;
+        this.elements[key].style.gridRow = Math.floor(row) + 1;
+      });
     },
   },
   mounted() {
@@ -71,19 +142,14 @@ export default {
       "end-point": this.$refs.end,
     };
 
-    Object.keys(this.elements).forEach((key) => {
-      // [15,25] x, y
-      // number 65
+    this.calculatePosition(this.data, this.elements);
 
-      const row = this.data[key] / this.data.size[0]; // 65/15
-      const leftover = row - Math.floor(row); // 0.333333333333
-      const col = leftover * this.data.size[0]; // 0.3333333333 * 15
-      console.log(row, col); // 4.3333333, 4.999999999
-      console.log(Math.floor(row), Math.ceil(col)); // 5 5
+    this.setupWalls();
 
-      this.elements[key].style.gridColumn = Math.round(col) + 1;
-      this.elements[key].style.gridRow = Math.floor(row) + 1;
-    });
+    window.addEventListener("keydown", this.listenToKeydown);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keydown", () => {});
   },
 };
 </script>

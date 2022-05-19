@@ -76,7 +76,6 @@ export default {
         .catch((error) => console.log(error));
     },
     startGame() {
-      console.log("start");
       this.loading = true;
 
       fetch(
