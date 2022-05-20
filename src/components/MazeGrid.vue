@@ -1,40 +1,85 @@
 <template>
-  <div class="maze__wrapper">
-    <div class="maze__grid" :style="getGridStyle">
+  <div class="maze-wrapper">
+    <div
+      class="relative grid w-9/12 max-w-4xl mx-auto my-8 max-h-80"
+      :style="getGridStyle"
+    >
       <div
         v-for="(cell, index) in data.data"
         :key="index"
         :id="`cell-${index}`"
-        :class="['grid__cell', ...mappedCells[index]]"
+        :class="['grid-cell', ...mappedCells[index]]"
       ></div>
 
-      <div class="maze__characters" :style="getGridStyle">
-        <div class="icon icon--domokun" ref="domokun">
-          <img src="../assets/domokun.png" alt="" />
+      <div
+        class="grid absolute t-0 l-0 h-full w-full min-h-0 min-w-0 border-4 border-pink-400"
+        :style="getGridStyle"
+      >
+        <div class="w-full h-full" ref="domokun">
+          <img
+            class="w-full h-full object-contain"
+            src="../assets/domokun.png"
+            alt=""
+          />
         </div>
-        <div class="icon icon--end-point" ref="end">
-          <img src="../assets/rainbow.png" alt="" />
+        <div class="w-full h-full" ref="end">
+          <img
+            class="w-full h-full object-contain"
+            src="../assets/rainbow.png"
+            alt=""
+          />
         </div>
-        <div class="icon icon--pony" ref="pony">
-          <img src="../assets/pony.png" alt="" />
+        <div class="w-full h-full" ref="pony">
+          <img
+            class="w-full h-full object-contain"
+            src="../assets/pony.png"
+            alt=""
+          />
         </div>
       </div>
     </div>
+
+    <Modal
+      v-if="showEndModal"
+      closeButton="close"
+      @close="gameStatus.state = 'pending'"
+    >
+      <template slot="main">
+        <p
+          class="text-lg font-semibold tracking-widest text-pink-500 uppercase mb-5"
+        >
+          {{ gameStatus["state-result"] }}
+        </p>
+        <img
+          v-if="gameStatus['hidden-url']"
+          :src="`https://ponychallenge.trustpilot.com${gameStatus['hidden-url']}`"
+          alt=""
+        />
+        <vButton @click="restartGame"> Try again </vButton>
+      </template>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "./Modal.vue";
+import vButton from "./Button.vue";
+
 export default {
   props: {
     data: {
       type: Object,
     },
   },
+  components: {
+    Modal,
+    vButton,
+  },
   data() {
     return {
       elements: {},
       mappedCells: [],
-      gameStatus: "active",
+      gameStatus: { state: "active" },
     };
   },
   watch: {
@@ -50,6 +95,9 @@ export default {
         "aspect-ratio": `${this.data.size[0]} / ${this.data.size[1]}`,
       };
     },
+    showEndModal() {
+      return this.gameStatus.state.toLowerCase() !== "active";
+    },
   },
   methods: {
     setupWalls() {
@@ -64,7 +112,6 @@ export default {
       });
     },
     makeMove(direction) {
-      console.log("call make move");
       fetch(
         `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.data.maze_id}`,
         {
@@ -80,9 +127,9 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           const state = res["state-result"].toLowerCase();
-          this.gameStatus = res.state;
+          this.gameStatus = { ...res };
 
-          if (res.state === "active" && state === "move accepted") {
+          if (state !== "over") {
             this.$emit("refreshData");
           }
         });
@@ -143,64 +190,31 @@ export default {
     };
 
     this.calculatePosition(this.data, this.elements);
-
     this.setupWalls();
-
     window.addEventListener("keydown", this.listenToKeydown);
   },
   beforeDestroy() {
+    this.mappedCells = [];
+
     window.removeEventListener("keydown", () => {});
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.maze__wrapper {
-  .maze__grid {
-    position: relative;
-    display: grid;
-    width: 75vw;
-    max-width: 850px;
-    border-bottom: 3px solid pink;
-    border-right: 3px solid pink;
-    aspect-ratio: 1/1;
-    margin: 0 auto;
-  }
-
-  .maze__characters {
-    display: grid;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    min-height: 0;
-    min-width: 0;
-  }
-
-  .grid__cell {
+.maze-wrapper {
+  .grid-cell {
     &.b-n {
-      border-top: 3px solid pink;
+      border-top: 3px solid rgb(244, 114, 182);
     }
     &.b-s {
-      border-bottom: 3px solid pink;
+      border-bottom: 3px solid rgb(244, 114, 182);
     }
     &.b-e {
-      border-right: 3px solid pink;
+      border-right: 3px solid rgb(244, 114, 182);
     }
     &.b-w {
-      border-left: 3px solid pink;
-    }
-  }
-
-  .icon {
-    width: 100%;
-    height: 100%;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      border-left: 3px solid rgb(244, 114, 182);
     }
   }
 }

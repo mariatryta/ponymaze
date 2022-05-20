@@ -1,10 +1,13 @@
 const state = () => ({
-  pony: null
+  pony: null,
+  ponyName: null
 });
 
 // getters
 const getters = {
-  // cartTotalPrice: (state, getters) => {}
+  ponyName: (state) => {
+    return state.ponyName;
+  }
 };
 
 // actions
@@ -16,6 +19,9 @@ const actions = {
 const mutations = {
   setPony(state, data) {
     state.pony = data;
+  },
+  setPonyName(state, name) {
+    state.ponyName = name;
   }
 };
 

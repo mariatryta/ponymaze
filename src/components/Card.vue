@@ -1,31 +1,38 @@
 <template>
-  <a class="relative block bg-black group" href="">
+  <div>
+    <h5 class="mb-6 font-bold text-lg text-pink-700">
+      {{ title }}
+    </h5>
+
     <img
-      class="absolute inset-0 object-cover w-full h-full transition-opacity opacity-75 group-hover:opacity-50"
-      :src="data.image[0]"
+      class="object-cover w-full h-86 shadow-xl rounded-xl"
+      :src="image"
       alt=""
     />
-    <div class="relative p-8">
-      <p class="text-2xl font-bold text-white">{{ data.name }}</p>
 
-      <div class="mt-64">
-        <div
-          class="transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
-        >
-          <p class="text-sm text-white">
-            {{ data.occupation }}
-          </p>
-        </div>
-      </div>
+    <div class="p-4">
+      <p class="mt-2 text-gray-500" v-if="description">
+        {{ description }}
+      </p>
     </div>
-  </a>
+
+    <slot></slot>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    data: {
-      type: Object,
+    image: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+    title: {
+      type: String,
       required: true,
     },
   },

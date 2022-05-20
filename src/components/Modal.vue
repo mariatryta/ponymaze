@@ -2,7 +2,7 @@
   <div
     role="dialog"
     :aria-labelledby="labeledBy"
-    :aria-describedby="dialog - description"
+    :aria-describedby="describedby"
     class="fixed top-0 left-0 bg h-screen w-screen flex justify-center items-center transition-all duration-200 ease-in"
   >
     <div
@@ -11,7 +11,6 @@
     <section class="relative shadow-2xl rounded-3xl z-2 bg-white max-w-xl">
       <div class="p-8 text-center sm:p-12">
         <slot name="main"></slot>
-        <vButton @click="$emit('select')"> {{ selectButton }} </vButton>
         <vButton @click="$emit('close')"> {{ closeButton }} </vButton>
       </div>
     </section>
@@ -33,11 +32,7 @@ export default {
       default: "",
       require: false,
     },
-    selectButton: {
-      type: String,
-      default: "",
-      require: true,
-    },
+
     closeButton: {
       type: String,
       default: "",
@@ -47,6 +42,15 @@ export default {
   components: {
     vButton,
   },
-  mounted() {},
+  mounted() {
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode == 27) {
+        this.$emit("close");
+      }
+    });
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", () => {});
+  },
 };
 </script>

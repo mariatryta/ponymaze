@@ -32,21 +32,21 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - [x] Init new game with Pony name
 - [x] Fetch data for maze structure
-- [ ] Offer maze config
+- [x] Offer maze config
 - [x] Build maze
 - [x] Keyboard nav
 - [ ] Animation
-- [ ] Winning / loosing state
+- [x] Winning / loosing state
+- [ ] Proper error states
+- [ ] Debounce
 - [ ] Quality
   - [ ] Unit tests
   - [ ] Accessibility
   - [ ] trap focus withing dialog
 - [ ] Features
   - [ ] restart app / start new game
-  - [ ] possibility to persist in LS
-  - [ ] generate random pony name
-  - [ ] autosuggest pony names
+  - [x] suggest pony names
   - [ ] time based
   - [ ] scoreboard
-  - [ ] Pick your pony
+  - [x] Pick your pony
   - [ ] toggle button
