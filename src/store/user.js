@@ -22,6 +22,10 @@ const mutations = {
   },
   setPonyName(state, name) {
     state.ponyName = name;
+  },
+  resetData(state) {
+    state.pony = null;
+    state.ponyName = null;
   }
 };
 

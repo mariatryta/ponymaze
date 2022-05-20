@@ -11,6 +11,8 @@
     "@tailwindcss/forms": "^0.5.2",
     "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
+    "focus-trap": "^6.9.2",
+    "focus-trap-vue": "^1.1.1",
     "modern-normalize": "^1.1.0",
     "postcss": "^7.0.39",
     "sass": "^1.51.0",
@@ -18,6 +20,7 @@
     "vue": "^2.6.11",
     "vue-inline-svg": "^2.1.0",
     "vue-router": "^3.5.4",
+    "vue-svg-loader": "^0.16.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {

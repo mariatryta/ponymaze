@@ -6,8 +6,12 @@ import Routes from "./utils/router";
 import store from "./store";
 import "./assets/tailwind.css";
 
+import { FocusTrap } from "focus-trap-vue";
+
 Vue.use(VueRouter);
 Vue.use(InlineSvgPlugin);
+
+Vue.component("FocusTrap", FocusTrap);
 
 Vue.config.productionTip = false;
 

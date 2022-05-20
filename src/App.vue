@@ -1,18 +1,13 @@
 <template>
   <div id="app">
-    <vHeader></vHeader>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import vHeader from "./components/Header.vue";
-
 export default {
   name: "App",
-  components: {
-    vHeader,
-  },
+
   data() {
     return {
       ponyNames: [],

@@ -20,6 +20,10 @@ const mutations = {
   },
   setData(state, data) {
     state.data = data;
+  },
+  resetData(state) {
+    state.data = [];
+    state.id = null;
   }
 };
 

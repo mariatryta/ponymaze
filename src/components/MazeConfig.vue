@@ -83,7 +83,10 @@ export default {
           this.$store.commit("maze/setId", maze_id), this.startGame();
         })
         .catch((e) => {
-          alert(e);
+          console.log(e);
+          alert(
+            "Looks like this pony is home and safe, go back and try a new pony"
+          );
         });
     },
     startGame() {

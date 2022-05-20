@@ -17,9 +17,10 @@
       </div>
 
       <div
-        class="md:w-6/12 flex justify-center mx-10"
+        class="md:w-6/12 flex justify-center mx-10 items-center flex-col"
         v-if="state === 1 && pony"
       >
+        <button @click="state = 0" class="">Go back</button>
         <SelectMaze></SelectMaze>
       </div>
     </div>

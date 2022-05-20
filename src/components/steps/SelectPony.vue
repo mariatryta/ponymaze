@@ -2,6 +2,7 @@
   <div class="md:w-6/12 w-4/5">
     <form @submit.prevent="submitValue" class="mb-2">
       <vInput
+        ref="input"
         name="pony"
         label="Write a valid pony name"
         :value.sync="userPonyName"
@@ -13,7 +14,11 @@
 
     <p
       @click="showDefaultPonies = true"
-      class="text-sm font-light text-gray-600 cursor-pointer"
+      @keydown.enter="showDefaultPonies = true"
+      @keydown.space="showDefaultPonies = true"
+      tabindex="0"
+      role="button"
+      class="text-sm font-light text-gray-600 cursor-pointer focus:ring-2 focus:ring-pink-600 focus:outline-none"
     >
       Don't know any ponies ? Choose one here
     </p>
@@ -30,6 +35,7 @@
       v-show="showDefaultPonies"
       labeledBy="showcaseTitle"
       closeButton="Cancel"
+      :isActive="showDefaultPonies"
       @close="showDefaultPonies = false"
     >
       <template slot="main">
@@ -120,6 +126,10 @@ export default {
           this.loading = true;
         });
     },
+  },
+  mounted() {
+    const input = this.$refs.input.$el.querySelector("input");
+    input.focus();
   },
 };
 </script>

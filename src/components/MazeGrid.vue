@@ -39,11 +39,7 @@
       </div>
     </div>
 
-    <Modal
-      v-if="showEndModal"
-      closeButton="close"
-      @close="gameStatus.state = 'pending'"
-    >
+    <Modal v-if="showEndModal" closeButton="Try again" @close="endGame">
       <template slot="main">
         <p
           class="text-lg font-semibold tracking-widest text-pink-500 uppercase mb-5"
@@ -55,7 +51,6 @@
           :src="`https://ponychallenge.trustpilot.com${gameStatus['hidden-url']}`"
           alt=""
         />
-        <vButton @click="restartGame"> Try again </vButton>
       </template>
     </Modal>
   </div>
@@ -63,7 +58,6 @@
 
 <script>
 import Modal from "./Modal.vue";
-import vButton from "./Button.vue";
 import fetchData from "../helpers/fetchData.js";
 
 export default {
@@ -74,7 +68,6 @@ export default {
   },
   components: {
     Modal,
-    vButton,
   },
   data() {
     return {
@@ -180,6 +173,10 @@ export default {
         this.elements[key].style.gridColumn = Math.round(col) + 1;
         this.elements[key].style.gridRow = Math.floor(row) + 1;
       });
+    },
+    endGame() {
+      this.$store.dispatch("resetGame");
+      this.$router.push("/");
     },
   },
   mounted() {
