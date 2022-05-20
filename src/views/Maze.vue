@@ -7,6 +7,7 @@
 <script>
 import { mapState } from "vuex";
 import MazeGrid from "../components/MazeGrid.vue";
+import fetchData from "../helpers/fetchData.js";
 
 export default {
   components: {
@@ -17,19 +18,11 @@ export default {
   }),
   methods: {
     refreshData() {
-      fetch(
+      fetchData(
         `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.mazeData.maze_id}`
-      )
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error("Woops");
-        })
-        .then((res) => {
-          this.$store.commit("maze/setData", res);
-        })
-        .catch((error) => console.log(error));
+      ).then((res) => {
+        this.$store.commit("maze/setData", res);
+      });
     },
   },
 };

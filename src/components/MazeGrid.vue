@@ -64,6 +64,7 @@
 <script>
 import Modal from "./Modal.vue";
 import vButton from "./Button.vue";
+import fetchData from "../helpers/fetchData.js";
 
 export default {
   props: {
@@ -112,27 +113,26 @@ export default {
       });
     },
     makeMove(direction) {
-      fetch(
-        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.data.maze_id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            direction,
-          }),
-        }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          const state = res["state-result"].toLowerCase();
-          this.gameStatus = { ...res };
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const body = JSON.stringify({
+        direction,
+      });
 
-          if (state !== "over") {
-            this.$emit("refreshData");
-          }
-        });
+      fetchData(
+        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.data.maze_id}`,
+        "POST",
+        headers,
+        body
+      ).then((res) => {
+        const state = res["state-result"].toLowerCase();
+        this.gameStatus = { ...res };
+
+        if (state !== "over") {
+          this.$emit("refreshData");
+        }
+      });
     },
 
     listenToKeydown(e) {

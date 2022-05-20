@@ -37,6 +37,7 @@
 import vButton from "./Button.vue";
 import vInput from "./Input.vue";
 import { mapState } from "vuex";
+import fetchData from "../helpers/fetchData.js";
 
 export default {
   components: {
@@ -66,37 +67,32 @@ export default {
         "maze-player-name": this.pony.name,
         difficulty: parseInt(this.config.difficulty),
       };
+      const headers = {
+        "Content-Type": "application/json",
+      };
 
-      fetch("https://ponychallenge.trustpilot.com/pony-challenge/maze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error("Only ponies can play");
-        })
+      const body = JSON.stringify(data);
+
+      fetchData(
+        "https://ponychallenge.trustpilot.com/pony-challenge/maze",
+        "POST",
+        headers,
+        body
+      )
         .then(({ maze_id }) => {
           this.$store.commit("maze/setId", maze_id), this.startGame();
         })
-        .catch((error) => console.log(error));
+        .catch((e) => {
+          alert(e);
+        });
     },
     startGame() {
       this.loading = true;
 
-      fetch(
-        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.mazeId}`
+      fetchData(
+        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.mazeId}`,
+        "GET"
       )
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error("Only ponies can play");
-        })
         .then((res) => {
           this.$store.commit("maze/setData", res);
           this.$router.push("/maze");

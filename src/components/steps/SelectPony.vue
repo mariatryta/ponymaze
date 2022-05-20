@@ -18,6 +18,14 @@
       Don't know any ponies ? Choose one here
     </p>
 
+    <div
+      v-if="error.active"
+      class="my-4 p-4 text-red-700 border rounded border-red-900/10 bg-red-100"
+      role="alert"
+    >
+      <strong class="text-sm font-medium">{{ error.message }}</strong>
+    </div>
+
     <Modal
       v-show="showDefaultPonies"
       labeledBy="showcaseTitle"
@@ -46,6 +54,7 @@ import vButton from "../Button.vue";
 import vInput from "../Input.vue";
 import PonyShowcase from "../PonyShowcase.vue";
 import Modal from "../Modal.vue";
+import fetchData from "../../helpers/fetchData.js";
 
 export default {
   name: "SelectPony",
@@ -60,6 +69,10 @@ export default {
   data() {
     return {
       showDefaultPonies: false,
+      error: {
+        active: false,
+        message: "",
+      },
       defaultPonies: [
         { name: "Rarity", key: "rarity" },
         { name: "Princess Luna", key: "princess-luna" },
@@ -82,29 +95,27 @@ export default {
   },
   methods: {
     submitValue() {
+      this.error.active = false;
+
       if (!this.userPonyName || this.userPonyName === "") {
         return;
       }
 
       this.loading = true;
 
-      fetch(`http://ponyweb.ml/v1/character/${this.userPonyName}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Something went wrong while fetching pony's name.");
-        })
+      fetchData(`http://ponyweb.ml/v1/character/${this.userPonyName}`)
         .then(({ data }) => {
           if (data.length > 0) {
             this.$store.commit("user/setPony", data[0]);
-
             this.$emit("nextState");
           } else {
-            throw new Error("Couldn't find pony with this name");
+            this.error = {
+              message: "Couldn't find pony with this name",
+              active: true,
+            };
+            throw new Error(this.error);
           }
         })
-        .catch((error) => console.log(error))
         .finally(() => {
           this.loading = true;
         });
