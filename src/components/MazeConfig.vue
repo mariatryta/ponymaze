@@ -74,7 +74,7 @@ export default {
       const body = JSON.stringify(data);
 
       fetchData(
-        "https://ponychallenge.trustpilot.com/pony-challenge/maze",
+        `${process.env.VUE_APP_TRUSTPILOT_API}/maze`,
         "POST",
         headers,
         body

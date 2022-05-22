@@ -123,7 +123,7 @@ export default {
       });
 
       fetchData(
-        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.data.maze_id}`,
+        `${process.env.TRUSTPVUE_APP_TRUSTPILOT_APIILOT_API}maze/${this.data.maze_id}`,
         "POST",
         headers,
         body

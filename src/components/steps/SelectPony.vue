@@ -109,7 +109,7 @@ export default {
 
       this.loading = true;
 
-      fetchData(`https://ponyweb.ml/v1/character/${this.userPonyName}`)
+      fetchData(`${process.env.VUE_APP_API}/character/${this.userPonyName}`)
         .then(({ data }) => {
           if (data.length > 0) {
             this.$store.commit("user/setPony", data[0]);

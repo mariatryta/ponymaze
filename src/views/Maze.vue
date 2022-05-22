@@ -31,7 +31,7 @@ export default {
   methods: {
     refreshData() {
       fetchData(
-        `https://ponychallenge.trustpilot.com/pony-challenge/maze/${this.mazeData.maze_id}`
+        `${process.env.VUE_APP_TRUSTPILOT_API}/maze/${this.mazeData.maze_id}`
       ).then((res) => {
         this.$store.commit("maze/setData", res);
       });
