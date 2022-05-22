@@ -1,6 +1,14 @@
 # ponymaze
 
+Simple maze game created with Trustpilot API and Ponyweb API. Try and navigate pony through maze at different scale and levels.
+
+**Live demo:** https://ponymaze.netlify.app/
+
+The app has been created using vue, tailwind and jest + vue/test-utils among other helpers.
+
 ## Project setup
+
+Make sure you have Node (14.17.0) and npm globally on your machine.
 
 ```
 npm install
@@ -24,9 +32,11 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
+### Tests files
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+npm run test:unit
+
 
 ### To-Do
 
@@ -40,13 +50,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [x] Handle error states
 - [ ] Debounce
 - [ ] Quality
-  - [ ] Unit tests
-  - [x] Accessibility
+  - [x] Unit tests
+  - [ ] Accessibility (currently only during configuration stage)
   - [x] trap focus withing dialog
+  - [ ] Alternative method for generating grid
 - [ ] Features
-  - [ ] restart app / start new game
+  - [x] restart app / start new game
   - [x] suggest pony names
   - [ ] time based
   - [ ] scoreboard
   - [x] Pick your pony
-  - [ ] toggle button
+  - [x] toggle button
+```
