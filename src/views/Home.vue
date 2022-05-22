@@ -9,7 +9,7 @@
         />
       </div>
 
-      <div class="md:w-6/12 mx-10" v-if="state === 0">
+      <div v-if="state === 0" id="select-pony" class="md:w-6/12 mx-10">
         <SelectPony
           class="my-5 mx-auto"
           @nextState="state = state + 1"
@@ -17,17 +17,14 @@
       </div>
 
       <div
+        v-if="state === 1"
+        id="select-maze"
         class="md:w-6/12 flex justify-center mx-10 items-center flex-col"
-        v-if="state === 1 && pony"
       >
         <button @click="state = 0" class="text-m text-gray-500">Go back</button>
         <SelectMaze></SelectMaze>
       </div>
     </div>
-
-    <!-- <vButton @click="startGame" v-if="pony && mazeId">I am ready</vButton> -->
-
-    <!-- <LoadingOverlay /> -->
   </main>
 </template>
 

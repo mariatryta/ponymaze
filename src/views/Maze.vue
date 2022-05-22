@@ -37,6 +37,11 @@ export default {
       });
     },
   },
+  mounted() {
+    if (!this.mazeData) {
+      this.$router.push("/");
+    }
+  },
 };
 </script>
 
