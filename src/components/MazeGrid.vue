@@ -12,7 +12,7 @@
       ></div>
 
       <div
-        class="grid absolute t-0 l-0 h-full w-full min-h-0 min-w-0 border-4 border-pink-400"
+        class="grid absolute t-0 l-0 h-full w-full min-h-0 min-w-0 border-2 border-pink-400"
         :style="getGridStyle"
       >
         <div class="w-full h-full" ref="domokun">
@@ -210,16 +210,16 @@ export default {
 <style lang="scss" scoped>
 .grid-cell {
   &.b-n {
-    border-top: 3px solid rgb(244, 114, 182);
+    border-top: 2px solid rgb(244, 114, 182);
   }
   &.b-s {
-    border-bottom: 3px solid rgb(244, 114, 182);
+    border-bottom: 2px solid rgb(244, 114, 182);
   }
   &.b-e {
-    border-right: 3px solid rgb(244, 114, 182);
+    border-right: 2px solid rgb(244, 114, 182);
   }
   &.b-w {
-    border-left: 3px solid rgb(244, 114, 182);
+    border-left: 2px solid rgb(244, 114, 182);
   }
 }
 </style>
