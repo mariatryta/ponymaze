@@ -10,8 +10,6 @@ export default function fetchData(
     ...(body && { body })
   };
 
-  console.log(req);
-
   return fetch(url, req).then(async (res) => {
     if (res.ok) {
       return await res.json();

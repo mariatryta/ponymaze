@@ -1,5 +1,9 @@
 <template>
-  <Card class="w-6/12" :image="pony.image[0]" :title="`You chose ${pony.name}`">
+  <Card
+    class="md:w-6/12"
+    :image="pony.image[0]"
+    :title="`You chose ${pony.name}`"
+  >
     <MazeConfig></MazeConfig>
   </Card>
 </template>

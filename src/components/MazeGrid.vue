@@ -1,7 +1,7 @@
 <template>
-  <div class="maze-wrapper">
+  <div>
     <div
-      class="relative grid w-9/12 max-w-4xl mx-auto my-8 max-h-80"
+      class="relative grid w-full md:w-auto max-h-83 md:h-full mx-auto md:mb-0 mb-10"
       :style="getGridStyle"
     >
       <div
@@ -39,7 +39,12 @@
       </div>
     </div>
 
-    <Modal v-if="showEndModal" closeButton="Try again" @close="endGame">
+    <Modal
+      v-if="showEndModal"
+      closeButton="Try again"
+      @close="endGame"
+      :isActive="showEndModal"
+    >
       <template slot="main">
         <p
           class="text-lg font-semibold tracking-widest text-pink-500 uppercase mb-5"
@@ -53,12 +58,15 @@
         />
       </template>
     </Modal>
+
+    <KeyboardNav class="md:hidden mx-auto" @makeMove="makeMove"></KeyboardNav>
   </div>
 </template>
 
 <script>
 import Modal from "./Modal.vue";
 import fetchData from "../helpers/fetchData.js";
+import KeyboardNav from "../components/KeyboardNav.vue";
 
 export default {
   props: {
@@ -68,6 +76,7 @@ export default {
   },
   components: {
     Modal,
+    KeyboardNav,
   },
   data() {
     return {
@@ -199,20 +208,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.maze-wrapper {
-  .grid-cell {
-    &.b-n {
-      border-top: 3px solid rgb(244, 114, 182);
-    }
-    &.b-s {
-      border-bottom: 3px solid rgb(244, 114, 182);
-    }
-    &.b-e {
-      border-right: 3px solid rgb(244, 114, 182);
-    }
-    &.b-w {
-      border-left: 3px solid rgb(244, 114, 182);
-    }
+.grid-cell {
+  &.b-n {
+    border-top: 3px solid rgb(244, 114, 182);
+  }
+  &.b-s {
+    border-bottom: 3px solid rgb(244, 114, 182);
+  }
+  &.b-e {
+    border-right: 3px solid rgb(244, 114, 182);
+  }
+  &.b-w {
+    border-left: 3px solid rgb(244, 114, 182);
   }
 }
 </style>

@@ -37,12 +37,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [x] Keyboard nav
 - [ ] Animation
 - [x] Winning / loosing state
-- [ ] Proper error states
+- [x] Handle error states
 - [ ] Debounce
 - [ ] Quality
   - [ ] Unit tests
-  - [ ] Accessibility
-  - [ ] trap focus withing dialog
+  - [x] Accessibility
+  - [x] trap focus withing dialog
 - [ ] Features
   - [ ] restart app / start new game
   - [x] suggest pony names

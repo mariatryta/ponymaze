@@ -1,5 +1,5 @@
 <template>
-  <div class="md:w-6/12 w-4/5">
+  <div class="md:w-6/12 w-4/5 text-center">
     <form @submit.prevent="submitValue" class="mb-2">
       <vInput
         ref="input"

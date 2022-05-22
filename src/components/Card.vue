@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h5 class="mb-6 font-bold text-lg text-pink-700">
+  <div class="flex items-center flex-col">
+    <h5 class="mb-6 font-bold text-lg text-pink-700 text-center">
       {{ title }}
     </h5>
 
     <img
-      class="object-cover w-full h-86 shadow-xl rounded-xl"
+      class="object-cover w-2/3 h-86 shadow-xl rounded-xl"
       :src="image"
       alt=""
     />

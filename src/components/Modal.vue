@@ -11,7 +11,9 @@
       <div
         class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-70 z-1"
       ></div>
-      <section class="relative shadow-2xl rounded-3xl z-2 bg-white max-w-xl">
+      <section
+        class="relative shadow-2xl rounded-3xl z-2 bg-white max-w-xs max-h-83 md:max-w-xl overflow-auto"
+      >
         <div class="p-8 text-center sm:p-12">
           <slot name="main"></slot>
           <vButton @click="$emit('close')"> {{ closeButton }} </vButton>

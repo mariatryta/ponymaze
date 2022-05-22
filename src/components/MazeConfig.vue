@@ -21,8 +21,8 @@
 
     <vInput
       name="diffuculty"
-      min="1"
-      max="3"
+      min="0"
+      max="10"
       type="number"
       :value.sync="config.difficulty"
       classNames="mb-3 w-3/12 flex-0"

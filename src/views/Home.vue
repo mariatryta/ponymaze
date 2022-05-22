@@ -1,9 +1,9 @@
 <template>
-  <main class="md:flex flex-col h-full flex-1">
+  <main class="md:flex flex-col h-3/4 flex-1 mb-10">
     <div class="md:flex flex-1 items-center">
       <div class="md:w-6/12">
         <img
-          class="md:mt-0 mt-20 mx-auto bg-center"
+          class="md:my-0 my-5 mx-auto bg-center"
           src="@/assets/ponies.png"
           alt=""
         />
@@ -20,7 +20,7 @@
         class="md:w-6/12 flex justify-center mx-10 items-center flex-col"
         v-if="state === 1 && pony"
       >
-        <button @click="state = 0" class="">Go back</button>
+        <button @click="state = 0" class="text-m text-gray-500">Go back</button>
         <SelectMaze></SelectMaze>
       </div>
     </div>
