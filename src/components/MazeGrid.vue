@@ -123,7 +123,7 @@ export default {
       });
 
       fetchData(
-        `${process.env.TRUSTPVUE_APP_TRUSTPILOT_APIILOT_API}maze/${this.data.maze_id}`,
+        `${process.env.VUE_APP_TRUSTPILOT_API}/maze/${this.data.maze_id}`,
         "POST",
         headers,
         body
